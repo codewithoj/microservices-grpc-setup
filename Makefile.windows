@@ -1,0 +1,23 @@
+build_broker:
+	chdir ..\microservices-grpc-broker-service && set GOOS=linux && set GOARCH=amd64 && set CGO_ENABLED=0 && go build -o brokerApp ./cmd/api
+
+build_auth:
+	chdir ..\microservices-grpc-auth-service && set GOOS=linux && set GOARCH=amd64 && set CGO_ENABLED=0 && go build -o authApp ./cmd/api
+
+build_inventory:
+	chdir ..\microservices-grpc-inventory-service && set GOOS=linux && set GOARCH=amd64 && set CGO_ENABLED=0 && go build -o inventoryApp ./cmd/api
+
+start_broker:
+	chdir ..\microservices-grpc-broker-service && docker run -it --rm --name broker-service -p 8080:8080 broker-app
+
+start_auth:
+	chdir ..\microservices-grpc-auth-service && docker run -it --rm --name auth-service -p 8081:8081 auth-app
+
+start_inventory:
+	chdir ..\microservices-grpc-inventory-service && docker run -it --rm --name inventory-service -p 8082:8082 inventory-app
+
+start:
+	docker-compose up
+
+stop:
+	docker-compose down

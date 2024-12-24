@@ -1,0 +1,33 @@
+services:
+  broker-service:
+    build:
+      context: ../microservices-grpc-broker-service
+      dockerfile: ../microservices-grpc-broker-service/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  auth-service:
+    build:
+      context: ../microservices-grpc-auth-service
+      dockerfile: ../microservices-grpc-auth-service/Dockerfile
+    restart: always
+    ports:
+      - "8081:8081"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  inventory-service:
+    build:
+      context: ../microservices-grpc-inventory-service
+      dockerfile: ../microservices-grpc-inventory-service/Dockerfile
+    restart: always
+    ports:
+      - "8082:8082"
+    deploy:
+      mode: replicated
+      replicas: 1
